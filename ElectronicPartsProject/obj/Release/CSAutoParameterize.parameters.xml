@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DB_ElectronicPartsEntities-Web.config Connection String" description="DB_ElectronicPartsEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.DBElectronicPartsModel.DBElectronicPartsEntity.csdl|res://*/Models.DBElectronicPartsModel.DBElectronicPartsEntity.ssdl|res://*/Models.DBElectronicPartsModel.DBElectronicPartsEntity.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=DC01\OSELA;initial catalog=DB_ElectronicParts;persist security info=True;user id=oselaUISR;password=dashboardLogin;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\cnarvaez\\source\\repos\\ElectronicPartsSolution\\ElectronicPartsProject\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_ElectronicPartsEntities']/@connectionString" />
+  </parameter>
+</parameters>

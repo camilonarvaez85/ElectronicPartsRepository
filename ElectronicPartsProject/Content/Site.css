@@ -1,0 +1,100 @@
+﻿body {
+    padding-top: 85px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.navbar-inverse {
+    position: fixed;
+    width: -webkit-fill-available;
+    background-color: #00286d;
+    border-color: #00286d;
+}
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #a7a7a7;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .navbar-inverse .navbar-nav > li {
+        color: #f4f4f4;
+        font-size: 14px;
+        align-items: center;
+        font-weight: bold;
+    }
+
+/* Personalización general del navbar */
+.custom-navbar {
+    background-color: #00286d; /* Color de fondo general */
+    border-radius: 0;
+    /*padding-bottom: 15px;*/ /* Espacio adicional para las pestañas en la parte baja */
+}
+
+/* Estilo de las pestañas de navegación */
+.custom-nav-tabs {
+    display: flex;
+    align-items: flex-end; /* Alinea las pestañas hacia la parte inferior */
+}
+
+    .custom-nav-tabs li a {
+        color: #ffffff; /* Color del texto de los enlaces */
+        padding: 15px 20px;
+        border-top-left-radius: 15px; /* Bordes redondeados */
+        border-top-right-radius: 15px; /* Bordes redondeados */
+        transition: background-color 0.3s ease; /* Efecto de transición */
+    }
+
+        .custom-nav-tabs li a:hover {
+            background-color: #003580; /* Fondo al pasar el mouse */
+            color: #ffffff;
+        }
+
+/* Pestaña activa con fondo más oscuro */
+.active-tab a {
+    background-color: #001d4d; /* Color más oscuro para la pestaña activa */
+    color: #ffffff;
+    border-top-left-radius: 15px; /* Bordes redondeados */
+    border-top-right-radius: 15px; /* Bordes redondeados */
+}
+
+.pagination {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.align-items-end {
+    display:flex;
+    align-items:flex-end;
+}

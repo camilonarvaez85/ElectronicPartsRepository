@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_ElectronicPartsModelStoreContainer" CdmEntityContainer="DB_ElectronicPartsEntities">
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="DB_ElectronicPartsModel.category">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="global_ref_des" ColumnName="global_ref_des" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="category_name" ColumnName="category_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="files">
+      <EntityTypeMapping TypeName="DB_ElectronicPartsModel.file">
+        <MappingFragment StoreEntitySet="files">
+          <ScalarProperty Name="file_type" ColumnName="file_type" />
+          <ScalarProperty Name="file_id" ColumnName="file_id" />
+          <ScalarProperty Name="part_id" ColumnName="part_id" />
+          <ScalarProperty Name="file_name" ColumnName="file_name" />
+          <ScalarProperty Name="file_data" ColumnName="file_data" />
+          <ScalarProperty Name="upload_date" ColumnName="upload_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="supplier_parts">
+      <EntityTypeMapping TypeName="DB_ElectronicPartsModel.supplier_parts">
+        <MappingFragment StoreEntitySet="supplier_parts">
+          <ScalarProperty Name="supplier_part_id" ColumnName="supplier_part_id" />
+          <ScalarProperty Name="part_id" ColumnName="part_id" />
+          <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+          <ScalarProperty Name="manufacturer_part_number" ColumnName="manufacturer_part_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="suppliers">
+      <EntityTypeMapping TypeName="DB_ElectronicPartsModel.supplier">
+        <MappingFragment StoreEntitySet="suppliers">
+          <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+          <ScalarProperty Name="supplier_name" ColumnName="supplier_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="parts">
+      <EntityTypeMapping TypeName="DB_ElectronicPartsModel.part">
+        <MappingFragment StoreEntitySet="parts">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="schematic_symbol_file" ColumnName="schematic_symbol_file" />
+          <ScalarProperty Name="pkg_code" ColumnName="pkg_code" />
+          <ScalarProperty Name="footprint" ColumnName="footprint" />
+          <ScalarProperty Name="component_value" ColumnName="component_value" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="part_number" ColumnName="part_number" />
+          <ScalarProperty Name="part_id" ColumnName="part_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top custom-navbar">
+        <div class="container d-flex align-items-end" >
+            <div class="navbar-header" style="display:flex">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Content/images/cropped-logo-1.png" style="height: 85px; padding:10px 20px;" />
+            </div>
+            <div class="navbar-collapse collapse" style="width: 80%;">
+                <ul class="nav navbar-nav custom-nav-tabs ml-3">
+                    <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Part" ? "active-tab" : "")">
+                        @Html.ActionLink("Parts", "Index", "Part")
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Category" ? "active-tab" : "")">
+                        @Html.ActionLink("Categories", "Index", "Category")
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right ml-auto" style="float: right;">
+                    <li>@Html.Partial("_LogOnPartial")</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Osela Inc.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

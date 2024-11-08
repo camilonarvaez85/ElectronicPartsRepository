@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5c4ae9cf0a1040af8d7f7e05f7159ec2" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_ElectronicPartsModel.category" Width="1.5" PointX="1.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_ElectronicPartsModel.file" Width="1.5" PointX="4.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_ElectronicPartsModel.supplier_parts" Width="1.5" PointX="5.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_ElectronicPartsModel.supplier" Width="1.5" PointX="7.375" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="DB_ElectronicPartsModel.FK__supplier___suppl__182C9B23" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_ElectronicPartsModel.part" Width="1.5" PointX="2.625" PointY="0.5" />
+        <AssociationConnector Association="DB_ElectronicPartsModel.FK__Parts__category___1273C1CD1" />
+        <AssociationConnector Association="DB_ElectronicPartsModel.FK__files__part_id__1BFD2C071" />
+        <AssociationConnector Association="DB_ElectronicPartsModel.FK__supplier___part___173876EA1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ElectronicPartsProject.Models.DBElectronicPartsModel.supplier>
+
+@{ ViewBag.Title = "Supplier - Index"; }
+
+<br />
+
+<div class="col-sm-12 main-content">
+    <div class="form-group">
+        <div class="col col-md-10">
+            <a href="@Url.Action("Create", "Supplier")" type="button" class="btn btn-primary">Create New Supplier</a>
+        </div>
+    </div>
+
+    <!-- Filtros de Búsqueda -->
+    <div class="filter-section mb-3" style="padding: 15px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px;">
+        <h5>Search Filters</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Supplier Name</label>
+                <input type="text" id="supplierName" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de Resultados (parcial) -->
+    <div id="results">
+        @Html.Partial("_SuppliersTable", Model)
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function filterSuppliers() {
+            // Obtener los valores de los filtros
+            var supplierName = $('#supplierName').val();
+
+            // Realizar la solicitud AJAX para obtener los resultados filtrados
+            $.get('@Url.Action("FilterSuppliers", "Supplier")', { supplierName: supplierName }, function(data) {
+                // Actualizar el contenido de la tabla con los resultados
+                $('#results').html(data);
+            });
+        }
+
+        // Ejecutar la función de filtro al escribir en el campo
+        $('#supplierName').on('input', filterSuppliers);
+    </script>
+}

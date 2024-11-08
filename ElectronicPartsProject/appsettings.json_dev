@@ -1,0 +1,9 @@
+{
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "TenantId": "65378c8b-1457-4cdd-95b6-c43e6856ca7c",
+    "ClientId": "be0fc9cc-c18c-4fd8-b89d-e9a5555a3afe", // from app registration
+    "RedirectUri": "https://localhost:44323/",
+    "ClientSecret": "Ide8Q~wMIO8LqLr7MXjTZaDuTD2zk18dkqiwTbsE"
+  }
+}

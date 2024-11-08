@@ -1,0 +1,62 @@
+﻿@model IPagedList<ElectronicPartsProject.Models.DBElectronicPartsModel.part>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{ 
+    var filters = ViewBag.CurrentFilters as ElectronicPartsProject.Models.PartFilterVM ?? new ElectronicPartsProject.Models.PartFilterVM();
+}
+
+<table id="myDatatable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Part Number</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Component Value</th>
+            <th>Footprint</th>
+            <th>Is Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objPart in Model)
+        {
+            <tr>
+                <td>@objPart.part_number</td>
+                <td>@(objPart.category != null ? objPart.category.category_name : "No Category")</td>
+                <td>@objPart.description</td>
+                <td>@objPart.component_value</td>
+                <td>@objPart.footprint</td>
+                <td>@(objPart.is_active == true ? "Yes" : "No")</td>
+                <td>
+                    <a href="@Url.Action("Detail", "Part", new
+                                {
+                                    id = objPart.part_id,
+                                    page = ViewBag.CurrentPage,
+                                    partNumber = filters.PartNumber,
+                                    category = filters.Category,
+                                    description = filters.Description,
+                                    componentValue = filters.ComponentValue,
+                                    footprint = filters.Footprint,
+                                    isActive = filters.IsActive
+                                })">
+                        <span class="glyphicon glyphicon-search" style="padding-right:2px"></span>
+                    </a>
+                    <a href="@Url.Action("Delete", "Part", new
+                                {
+                                    id = objPart.part_id,
+                                    page = ViewBag.CurrentPage,
+                                    partNumber = filters.PartNumber,
+                                    category = filters.Category,
+                                    description = filters.Description,
+                                    componentValue = filters.ComponentValue,
+                                    footprint = filters.Footprint,
+                                    isActive = filters.IsActive
+                                })">
+                        <span class="glyphicon glyphicon-trash" style="padding-left:2px"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

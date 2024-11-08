@@ -1,0 +1,135 @@
+﻿@model ElectronicPartsProject.Models.DBElectronicPartsModel.part
+
+@{
+    ViewBag.Title = "Part - Detail";
+    var filters = ViewBag.CurrentFilters as ElectronicPartsProject.Models.PartFilterVM ?? new ElectronicPartsProject.Models.PartFilterVM();
+}
+
+<br />
+<div class="form-horizontal">
+    <h4>Part Details</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.part_number, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.part_number" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <textarea class="form-control" disabled>@Model.description</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.component_value, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.component_value" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.footprint, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.footprint" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.pkg_code, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.pkg_code" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.schematic_symbol_file, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.schematic_symbol_file" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.value, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.value" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.is_active, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="checkbox" @(Model.is_active == true ? "checked" : "") disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.category.category_name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" value="@Model.category.category_name" class="form-control" disabled />
+        </div>
+    </div>
+
+    <!-- Archivos Asociados -->
+    <div class="form-group">
+        <label class="control-label col-md-2">Existing Files</label>
+        <div class="col-md-10">
+            @if (Model.files != null && Model.files.Any())
+            {
+                <ul>
+                    @foreach (var file in Model.files)
+                    {
+                        <li>
+                            <a href="@Url.Action("DownloadFile", "Part", new { fileId = file.file_id })" target="_blank">@file.file_name</a>
+                        </li>
+
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No files attached.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Tabla de Proveedores Asociados -->
+    @if (Model.supplier_parts != null && Model.supplier_parts.Any())
+    {
+        <h4>Associated Suppliers</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Manufacturer Part Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var supplierPart in Model.supplier_parts)
+                {
+                    <tr>
+                        <td>@supplierPart.supplier.supplier_name</td>
+                        <td>@supplierPart.manufacturer_part_number</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <div>
+        @Html.ActionLink("Back to Parts", "Index", "Part", new
+            {
+                filters.PartNumber,
+                filters.Category,
+                filters.Description,
+                filters.ComponentValue,
+                filters.Footprint,
+                filters.IsActive,
+                page = ViewBag.CurrentPage
+            }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Edit Part", "Edit", "Part", new { id = Model.part_id }, new { @class = "btn btn-primary" })
+    </div>
+</div>

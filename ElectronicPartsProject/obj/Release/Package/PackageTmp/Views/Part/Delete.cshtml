@@ -1,0 +1,87 @@
+﻿
+@model ElectronicPartsProject.Models.DBElectronicPartsModel.part
+
+@{
+    ViewBag.Title = "Part - Delete";
+    var filters = ViewBag.CurrentFilters as ElectronicPartsProject.Models.PartFilterVM ?? new ElectronicPartsProject.Models.PartFilterVM();
+}
+
+<br />
+<h3>Are you sure you want to delete this part?</h3>
+<div>
+    <h4>Part: @Model.part_number</h4>
+    <hr />
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <dl class="dl-horizontal">
+        <dt>Part Number</dt>
+        <dd>@Model.part_number</dd>
+
+        <dt>Description</dt>
+        <dd>@Model.description</dd>
+
+        <dt>Component Value</dt>
+        <dd>@Model.component_value</dd>
+
+        <dt>Footprint</dt>
+        <dd>@Model.footprint</dd>
+
+        <dt>Package Code</dt>
+        <dd>@Model.pkg_code</dd>
+
+        <dt>Schematic Symbol File</dt>
+        <dd>@Model.schematic_symbol_file</dd>
+
+        <dt>Value</dt>
+        <dd>@Model.value</dd>
+
+        <dt>Is Active</dt>
+        <dd>@(Model.is_active == true ? "Yes" : "No")</dd>
+
+        <dt>Category</dt>
+        <dd>@Model.category.category_name</dd>
+
+        <!-- Archivos Asociados -->
+        <dt>Associated Files</dt>
+        <dd>
+            @if (Model.files != null && Model.files.Any())
+            {
+                <ul>
+                    @foreach (var file in Model.files)
+                    {
+                        <li>@file.file_name</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No files associated.</p>
+            }
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("DeleteConfirmed", "Part", FormMethod.Post))
+    {
+        //@Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.part_id)
+        <div class="form-actions no-color">
+            @Html.ActionLink("Back to Parts", "Index", "Part", new
+            {
+                filters.PartNumber,
+                filters.Category,
+                filters.Description,
+                filters.ComponentValue,
+                filters.Footprint,
+                filters.IsActive,
+                page = ViewBag.CurrentPage
+            }, new { @class = "btn btn-default" }) | 
+            <input type="submit" value="Delete" class="btn btn-danger" />
+
+        </div>
+    }
+</div>

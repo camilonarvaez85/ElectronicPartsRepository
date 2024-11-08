@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ElectronicPartsProject.Models.DBElectronicPartsModel.supplier>
+
+<table id="myDatatable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Supplier Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objSupplier in Model)
+        {
+            <tr>
+                <td>@objSupplier.supplier_name</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Supplier", new { id = objSupplier.supplier_id })"><span class="glyphicon glyphicon-pencil" style="padding-right:2px"></span></a>
+                    <a href="@Url.Action("Delete", "Supplier", new { id = objSupplier.supplier_id })"><span class="glyphicon glyphicon-trash" style="padding-left:2px"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

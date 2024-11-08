@@ -1,0 +1,48 @@
+﻿@model IPagedList<ElectronicPartsProject.Models.DBElectronicPartsModel.category>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    var filters = ViewBag.CurrentFilters as ElectronicPartsProject.Models.CategoryFilterVM ?? new ElectronicPartsProject.Models.CategoryFilterVM();
+}
+
+<table id="myDatatable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Global Ref Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objCategory in Model)
+        {
+            <tr>
+                <td>@objCategory.category_name</td>
+                <td>@objCategory.global_ref_des</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Category", new
+                                {
+                                    id = objCategory.category_id,
+                                    page = ViewBag.CurrentPage,
+                                    categoryName = filters.CategoryName,
+                                    globalRefDes = filters.GlobalRefDes
+                                })">
+                        @*<a href="@Url.Action("Edit", "Category", new { id = objCategory.category_id })">*@
+                        <span class="glyphicon glyphicon-pencil" style="padding-right:2px"></span>
+                    </a>
+                    <a href="@Url.Action("Delete", "Category", new
+                                {
+                                    id = objCategory.category_id,
+                                    page = ViewBag.CurrentPage,
+                                    categoryName = filters.CategoryName,
+                                    globalRefDes = filters.GlobalRefDes
+                                })">
+                        @*<a href="@Url.Action("Delete", "Category", new { id = objCategory.category_id })">*@
+                        <span class="glyphicon glyphicon-trash" style="padding-left:2px"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

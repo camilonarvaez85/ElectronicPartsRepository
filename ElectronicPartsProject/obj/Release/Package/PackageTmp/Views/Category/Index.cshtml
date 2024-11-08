@@ -1,0 +1,88 @@
+﻿@model IPagedList<ElectronicPartsProject.Models.DBElectronicPartsModel.category>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Category - Index";
+    var filters = ViewBag.CurrentFilters as ElectronicPartsProject.Models.CategoryFilterVM ?? new ElectronicPartsProject.Models.CategoryFilterVM();
+}
+
+<br />
+
+<div class="col-sm-12 main-content">
+    <div class="form-group">
+        <div class="col col-md-10">
+            <a href="@Url.Action("Create","Category")" type="button" class="btn btn-primary">Create New Category</a>
+        </div>
+    </div>
+
+    <div class="filter-section mb-3" style="padding: 15px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px;">
+        <h5>Search Filters</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Category Name</label>
+                <input type="text" id="categoryName" class="form-control" value="@filters.CategoryName"/>
+            </div>
+
+            <div class="col-md-6">
+                <label>Global Ref Description</label>
+                <input type="text" id="globalRefDes" class="form-control" value="@filters.GlobalRefDes"/>
+            </div>
+        </div>
+    </div>
+
+    <div id="results">
+        @Html.Partial("_CategoriesTable", Model)
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination" style="margin-bottom:20px;">
+        @Html.PagedListPager(
+            Model,
+            page => Url.Action("Index", new
+            {
+                page,
+                categoryName = filters.CategoryName,
+                globalRefDes = filters.GlobalRefDes,
+            }),
+            PagedListRenderOptions.PageNumbersOnly)
+    </div>
+    
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function filterCategories(pageUrl=null) {
+            // Obtener los valores de los filtros
+            var categoryName = $('#categoryName').val();
+            var globalRefDes = $('#globalRefDes').val();
+
+            // Construir la URL para la solicitud AJAX, usando pageUrl para la paginación
+            var url = pageUrl || '@Url.Action("Index", "Category")';
+
+            $.get(url, {
+                categoryName: categoryName,
+                globalRefDes: globalRefDes
+            }, function(data) {
+                $('#results').html($(data).find('#results').html());
+                $('.pagination').html($(data).find('.pagination').html());
+            });
+        }
+
+        // Ejecutar la función de filtro al escribir en los campos
+        $('#categoryName, #globalRefDes').on('input', function () {
+            filterCategories();
+        });
+
+        $('#isActive').on('change', function () {
+            filterCategories();
+        });
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            const pageUrl = $(this).attr('href');
+            filterCategories(pageUrl);
+        });
+    </script>
+}

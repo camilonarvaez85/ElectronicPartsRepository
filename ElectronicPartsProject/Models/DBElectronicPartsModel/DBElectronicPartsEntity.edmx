@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_ElectronicPartsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="global_ref_des" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="files">
+          <Key>
+            <PropertyRef Name="file_id" />
+          </Key>
+          <Property Name="file_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="part_id" Type="int" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="file_type" Type="nvarchar" MaxLength="255" />
+          <Property Name="file_data" Type="varbinary(max)" />
+          <Property Name="upload_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="parts">
+          <Key>
+            <PropertyRef Name="part_id" />
+          </Key>
+          <Property Name="part_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="part_number" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="component_value" Type="nvarchar" MaxLength="255" />
+          <Property Name="footprint" Type="nvarchar" MaxLength="255" />
+          <Property Name="pkg_code" Type="nvarchar" MaxLength="255" />
+          <Property Name="schematic_symbol_file" Type="nvarchar" MaxLength="255" />
+          <Property Name="value" Type="nvarchar" MaxLength="255" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supplier_parts">
+          <Key>
+            <PropertyRef Name="supplier_part_id" />
+          </Key>
+          <Property Name="supplier_part_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="part_id" Type="int" Nullable="false" />
+          <Property Name="supplier_id" Type="int" Nullable="false" />
+          <Property Name="manufacturer_part_number" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="supplier_id" />
+          </Key>
+          <Property Name="supplier_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__files__part_id__1BFD2C07">
+          <End Role="parts" Type="Self.parts" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="part_id" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parts__category___1273C1CD">
+          <End Role="categories" Type="Self.categories" Multiplicity="1" />
+          <End Role="parts" Type="Self.parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="parts">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___part___173876EA">
+          <End Role="parts" Type="Self.parts" Multiplicity="1" />
+          <End Role="supplier_parts" Type="Self.supplier_parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="part_id" />
+            </Principal>
+            <Dependent Role="supplier_parts">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___suppl__182C9B23">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="supplier_parts" Type="Self.supplier_parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplier_id" />
+            </Principal>
+            <Dependent Role="supplier_parts">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_ElectronicPartsModelStoreContainer">
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="files" EntityType="Self.files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parts" EntityType="Self.parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplier_parts" EntityType="Self.supplier_parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__files__part_id__1BFD2C07" Association="Self.FK__files__part_id__1BFD2C07">
+            <End Role="parts" EntitySet="parts" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parts__category___1273C1CD" Association="Self.FK__Parts__category___1273C1CD">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="parts" EntitySet="parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___part___173876EA" Association="Self.FK__supplier___part___173876EA">
+            <End Role="parts" EntitySet="parts" />
+            <End Role="supplier_parts" EntitySet="supplier_parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___suppl__182C9B23" Association="Self.FK__supplier___suppl__182C9B23">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="supplier_parts" EntitySet="supplier_parts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_ElectronicPartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="global_ref_des" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="parts" Relationship="DB_ElectronicPartsModel.FK__Parts__category___1273C1CD1" FromRole="category" ToRole="part1" />
+        </EntityType>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="file_id" />
+          </Key>
+          <Property Name="file_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="part_id" Type="Int32" />
+          <Property Name="file_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="file_data" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="upload_date" Type="DateTime" Precision="3" />
+          <Property Name="file_type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="part" Relationship="DB_ElectronicPartsModel.FK__files__part_id__1BFD2C071" FromRole="file" ToRole="part1" />
+        </EntityType>
+        <EntityType Name="supplier_parts">
+          <Key>
+            <PropertyRef Name="supplier_part_id" />
+          </Key>
+          <Property Name="part_id" Type="Int32" Nullable="false" />
+          <Property Name="supplier_id" Type="Int32" Nullable="false" />
+          <Property Name="manufacturer_part_number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="supplier" Relationship="Self.FK__supplier___suppl__182C9B23" FromRole="supplier_parts" ToRole="suppliers" />
+          <NavigationProperty Name="part" Relationship="DB_ElectronicPartsModel.FK__supplier___part___173876EA1" FromRole="supplier_parts" ToRole="part1" />
+          <Property Name="supplier_part_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplier_id" />
+          </Key>
+          <Property Name="supplier_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="supplier_parts" Relationship="Self.FK__supplier___suppl__182C9B23" FromRole="suppliers" ToRole="supplier_parts" />
+        </EntityType>
+        <Association Name="FK__supplier___suppl__182C9B23">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="1" />
+          <End Role="supplier_parts" Type="Self.supplier_parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplier_id" />
+            </Principal>
+            <Dependent Role="supplier_parts">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_ElectronicPartsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="files" EntityType="Self.file" />
+          <EntitySet Name="supplier_parts" EntityType="Self.supplier_parts" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <AssociationSet Name="FK__supplier___suppl__182C9B23" Association="Self.FK__supplier___suppl__182C9B23">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="supplier_parts" EntitySet="supplier_parts" />
+          </AssociationSet>
+          <EntitySet Name="parts" EntityType="DB_ElectronicPartsModel.part" />
+          <AssociationSet Name="FK__Parts__category___1273C1CD1" Association="DB_ElectronicPartsModel.FK__Parts__category___1273C1CD1">
+            <End Role="category" EntitySet="categories" />
+            <End Role="part1" EntitySet="parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__files__part_id__1BFD2C071" Association="DB_ElectronicPartsModel.FK__files__part_id__1BFD2C071">
+            <End Role="part1" EntitySet="parts" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___part___173876EA1" Association="DB_ElectronicPartsModel.FK__supplier___part___173876EA1">
+            <End Role="part1" EntitySet="parts" />
+            <End Role="supplier_parts" EntitySet="supplier_parts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="part">
+          <Key>
+            <PropertyRef Name="part_id" />
+          </Key>
+          <Property Name="part_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="part_number" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="component_value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="footprint" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pkg_code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="schematic_symbol_file" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="category" Relationship="DB_ElectronicPartsModel.FK__Parts__category___1273C1CD1" FromRole="part1" ToRole="category" />
+          <NavigationProperty Name="files" Relationship="DB_ElectronicPartsModel.FK__files__part_id__1BFD2C071" FromRole="part1" ToRole="file" />
+          <NavigationProperty Name="supplier_parts" Relationship="DB_ElectronicPartsModel.FK__supplier___part___173876EA1" FromRole="part1" ToRole="supplier_parts" />
+        </EntityType>
+        <Association Name="FK__Parts__category___1273C1CD1">
+          <End Type="DB_ElectronicPartsModel.category" Role="category" Multiplicity="1" />
+          <End Type="DB_ElectronicPartsModel.part" Role="part1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="part1">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__files__part_id__1BFD2C071">
+          <End Type="DB_ElectronicPartsModel.part" Role="part1" Multiplicity="0..1" />
+          <End Type="DB_ElectronicPartsModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="part1">
+              <PropertyRef Name="part_id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___part___173876EA1">
+          <End Type="DB_ElectronicPartsModel.part" Role="part1" Multiplicity="1" />
+          <End Type="DB_ElectronicPartsModel.supplier_parts" Role="supplier_parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="part1">
+              <PropertyRef Name="part_id" />
+            </Principal>
+            <Dependent Role="supplier_parts">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_ElectronicPartsModelStoreContainer" CdmEntityContainer="DB_ElectronicPartsEntities">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="DB_ElectronicPartsModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="global_ref_des" ColumnName="global_ref_des" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files">
+            <EntityTypeMapping TypeName="DB_ElectronicPartsModel.file">
+              <MappingFragment StoreEntitySet="files">
+                <ScalarProperty Name="file_type" ColumnName="file_type" />
+                <ScalarProperty Name="file_id" ColumnName="file_id" />
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="file_data" ColumnName="file_data" />
+                <ScalarProperty Name="upload_date" ColumnName="upload_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supplier_parts">
+            <EntityTypeMapping TypeName="DB_ElectronicPartsModel.supplier_parts">
+              <MappingFragment StoreEntitySet="supplier_parts">
+                <ScalarProperty Name="supplier_part_id" ColumnName="supplier_part_id" />
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="manufacturer_part_number" ColumnName="manufacturer_part_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="DB_ElectronicPartsModel.supplier">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="supplier_name" ColumnName="supplier_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parts">
+            <EntityTypeMapping TypeName="DB_ElectronicPartsModel.part">
+              <MappingFragment StoreEntitySet="parts">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="schematic_symbol_file" ColumnName="schematic_symbol_file" />
+                <ScalarProperty Name="pkg_code" ColumnName="pkg_code" />
+                <ScalarProperty Name="footprint" ColumnName="footprint" />
+                <ScalarProperty Name="component_value" ColumnName="component_value" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="part_number" ColumnName="part_number" />
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

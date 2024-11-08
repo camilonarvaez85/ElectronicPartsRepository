@@ -1,0 +1,9 @@
+﻿
+@if (Request.IsAuthenticated)
+{
+    <p>@User.Identity.Name | &nbsp;   @Html.ActionLink("Logout", "SignOut", "Home") </p>
+
+}
+else { 
+    <p>NO AUTH</p>
+}
